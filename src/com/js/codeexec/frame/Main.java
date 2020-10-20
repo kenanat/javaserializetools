@@ -681,57 +681,7 @@ public class Main extends javax.swing.JFrame {
         this.jbtn_execmd.setEnabled(true);
     }//GEN-LAST:event_jbtn_execmdActionPerformed
     private static final int  version=20190828;
-    private static String sid="V:public"+"--OS:"+System.getProperty("os.name")+"--Serial:"+DiskUtil.getSerialNumber("C")+"--CPU:"+DiskUtil.GetCpuID()+"--Motherboard:"+DiskUtil.getMotherboardSN()+"--Mac:"+DiskUtil.GetMac();
-    private static String versionURL="http://127.0.0.1/soft/getNewVersion?ENNAME=javaserializetools&NO=" + URLEncoder.encode(sid) + "&VERSION=" + version;
-    public void checkUpdate()
-        {
-            try
-            {
 
-                String[] result = HttpTool.getHttpReuest(versionURL,"UTF-8").split("-");
-                String versionText = result[0];
-                int cversion =Integer.parseInt(result[1]);
-                String versionUpdateURL = result[2];
-                if (cversion > version)
-                {
-                   int n = JOptionPane.showConfirmDialog(null, "发现新版本：" + versionText + "，更新日期：" + cversion + "，立即更新吗？", "更新提示",JOptionPane.YES_NO_OPTION);
-                    if (n==0)
-                    {
-                        try
-                        {
-                             int lindex=versionUpdateURL.lastIndexOf("/");
-                            boolean isok=false;
-                            if (lindex != -1)
-                            {
-                                String path=System.getProperty("user.dir");
-                                String surl=versionUpdateURL.substring(0,lindex+1);
-                                String fileName=versionUpdateURL.substring(lindex+1);
-
-                                isok=HttpTool.downloadFile(surl+URLEncoder.encode(fileName, "UTF-8"), path+"/"+fileName);
-                            }
-
-                            if(isok){
-                                JOptionPane.showMessageDialog(null, "更新完成！", "更新提示", JOptionPane.INFORMATION_MESSAGE);
-                            }
-                            else{
-                                JOptionPane.showMessageDialog(null, "更新失败，请访问官方更新！", "更新提示", JOptionPane.INFORMATION_MESSAGE);
-                            }
-                        }catch (Exception other)
-                        {
-                             JOptionPane.showMessageDialog(null, "更新失败，请访问官方更新！"+other.getMessage(), "更新提示", JOptionPane.INFORMATION_MESSAGE);
-                        }
-                    }
-                }
-                else
-                {
-                    log("自动检查更新，没有发现新版本！");
-                }
-            }
-            catch (Exception e)
-            {
-                log("检查更新，联网失败！"+e.getMessage());
-            }
-        }
     private void jmenu_aboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenu_aboutActionPerformed
         JOptionPane.showMessageDialog(null, "本工具提供给安全测试人员，安全工程师，进行安全自查使用，请勿非法使用！\r\n版本：V 1.7 "+version+"\r\nBug反馈：1341413415@qq.com", "关于", JOptionPane.INFORMATION_MESSAGE); 
     }//GEN-LAST:event_jmenu_aboutActionPerformed
